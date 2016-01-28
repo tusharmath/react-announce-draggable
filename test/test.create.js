@@ -7,9 +7,6 @@
 import test from 'ava'
 import create from '../src/create'
 
-//DRAG_OVER
-//DRAG_START
-//DROP
 test(t => {
   const dd = create()
   const out = []
