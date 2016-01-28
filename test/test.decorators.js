@@ -14,11 +14,12 @@ test('draggable', t => {
   const listeners = []
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
+  const observer = Rx.Observer.create(x => out.push(x))
   const utils = {
+    observer,
     ReactDOM: {findDOMNode}
   }
-  const observer = Rx.Observer.create(x => out.push(x))
-  const Mock = draggable(utils, [observer])(mock())
+  const Mock = draggable(utils, mock())
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
@@ -32,11 +33,9 @@ test('droppable', t => {
   const listeners = []
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
-  const utils = {
-    ReactDOM: {findDOMNode}
-  }
   const observer = Rx.Observer.create(x => out.push(x))
-  const Mock = droppable(utils, [observer])(mock())
+  const utils = {observer, ReactDOM: {findDOMNode}}
+  const Mock = droppable(utils, mock())
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
