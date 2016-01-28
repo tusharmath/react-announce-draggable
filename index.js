@@ -13,7 +13,7 @@ module.exports = () => {
   return {
     draggable: decorators.draggable({ReactDOM, observer}),
     droppable: decorators.droppable({ReactDOM, observer}),
-    getStream: actionBus.getStream
+    stream: actionBus.getStream()
   }
 }
 module.exports.create = create
