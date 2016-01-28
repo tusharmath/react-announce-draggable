@@ -19,7 +19,7 @@ exports.draggable = createDeclarative(function (stream, dispose, u, observers) {
   )
 })
 
-exports.droppable = createDeclarative(function (stream, dispose, ReactDOM, observers) {
+exports.droppable = createDeclarative(function (stream, dispose, u, observers) {
   const _dispatch = dispatch(observers, this)
   dispose(
     stream.filter(x => x.event === 'DID_MOUNT')
