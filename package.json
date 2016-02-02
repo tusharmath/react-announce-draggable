@@ -16,7 +16,8 @@
     "ava": "^0.11.0",
     "cz-conventional-changelog": "^1.1.5",
     "react-dom": "^0.14.6",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "rx": "^4.0.7"
   },
   "config": {
     "commitizen": {
@@ -24,11 +25,11 @@
     }
   },
   "peerDependencies": {
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "rx": "^4.0.7"
   },
   "dependencies": {
     "lodash": "^4.0.1",
-    "react-announce": "^0.2.1",
-    "rx": "^4.0.7"
+    "react-announce": "^0.2.1"
   }
 }
