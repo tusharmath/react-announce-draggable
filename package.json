@@ -30,6 +30,6 @@
   },
   "dependencies": {
     "lodash": "^4.0.1",
-    "react-announce": "^0.1.2"
+    "react-announce": "^0.2.1"
   }
 }
