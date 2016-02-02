@@ -5,10 +5,13 @@
 'use strict'
 
 const Rx = require('rx')
-const _ = require('lodash')
 module.exports = () => {
   const observer = new Rx.Subject()
-  const omitType = x => _.omit(x, 'type')
+  const omitType = x => {
+    const y = Object.assign({}, x)
+    delete y.type
+    return y
+  }
   const dragOver = observer.filter(x => x.type === 'DRAG_OVER').map(omitType)
   const dragStart = observer.filter(x => x.type === 'DRAG_START').map(omitType)
   const drop = observer.filter(x => x.type === 'DROP').map(omitType)
