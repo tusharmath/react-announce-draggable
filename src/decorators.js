@@ -18,7 +18,7 @@ e._findDomNode = (ReactDOM, stream) => stream
 e.draggable = createDeclarative(function (stream, dispose, u) {
   dispose(e
     ._findDomNode(u.ReactDOM, stream)
-    .subscribe(el => el.addEventListener('dragstart', x => dispatch(u.observer, this, 'DRAG_START', x)))
+    .subscribe(el => el.addEventListener('dragstart', x => this.dispatch('DRAG_START', x)))
   )
 })
 
