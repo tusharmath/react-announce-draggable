@@ -4,20 +4,22 @@
 
 'use strict'
 import test from 'ava'
-import { draggable, droppable } from '../src/decorators'
+import decorators from '../src/decorators'
 import { asStream } from 'react-announce'
 import Rx from 'rx'
 const mock = () => class MOCK {
 
 }
 test('draggable', t => {
+
   const out = []
   const listeners = []
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
   const observer = Rx.Observer.create(x => out.push(x))
-  const u = {ReactDOM: {findDOMNode}}
-  const Mock = asStream(observer)(draggable(u, mock()))
+  const ReactDOM = {findDOMNode}
+  const {draggable} = decorators(ReactDOM)
+  const Mock = asStream(observer)(draggable(mock()))
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
@@ -35,8 +37,9 @@ test('droppable', t => {
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
   const observer = Rx.Observer.create(x => out.push(x))
-  const u = {ReactDOM: {findDOMNode}}
-  const Mock = asStream(observer)(droppable(u, mock()))
+  const ReactDOM = {findDOMNode}
+  const {droppable} = decorators(ReactDOM)
+  const Mock = asStream(observer)(droppable(mock()))
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
