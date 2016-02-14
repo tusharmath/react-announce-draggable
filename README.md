@@ -1,6 +1,6 @@
-# Reactive Announce Draggable 
-[![Build Status](https://travis-ci.org/tusharmath/react-announce-draggable.svg?branch=master)](https://travis-ci.org/tusharmath/react-announce-draggable)
-[![npm](https://img.shields.io/npm/v/react-announce-draggable.svg)](https://www.npmjs.com/package/react-announce-draggable)
+# Reactive Announce Draggable
+[![Build Status][travis-ci-icon]][travis-ci]
+[![npm][npm-icon]][npm]
 
 ## Installation
 
@@ -10,11 +10,19 @@ npm i react-announce-draggable --save
 
 ## Example Usage
 
+Auto fires three types of custom events — `DRAG_START`, `DRAG_OVER` and `DROP`, on the component stream.
+
 ```javascript
 
-const {draggable, droppable, stream} = require('react-announce-draggable')
+
+import {draggable, droppable, consolidate}  from 'react-announce-draggable'
+import {asStream} from 'react-announce'
+import rx from 'rx'
+
+const observer = new rx.Subject()
 
 @draggable
+@asStream(observer)
 class Apple extends Component {
   render () {
     return (
@@ -26,6 +34,7 @@ class Apple extends Component {
 }
 
 @droppable
+@asStream(observer)
 class Basket extends Component {
   render () {
     return (
@@ -36,5 +45,19 @@ class Basket extends Component {
   }
 }
 
+consolidate(observer).subscribe(x => console.log(x))
+
+/** OUTPUT:
+{picked: {component: Apple}, type: 'PICKED'},
+{over: {component: Basket}, picked: {component: Apple}, type: 'DRAG'},
+{over: {component: Basket}, picked: {component: Apple}, type: 'DRAG'},
+{over: {component: Basket}, picked: {component: Apple}, type: 'DROP'}
+**/
+
 
 ```
+
+[travis-ci-icon]: https://travis-ci.org/tusharmath/react-announce-draggable.svg?branch=master
+[travis-ci]: https://travis-ci.org/tusharmath/react-announce-draggable
+[npm-icon]: https://img.shields.io/npm/v/react-announce-draggable.svg
+[npm]: https://www.npmjs.com/package/react-announce-draggable
