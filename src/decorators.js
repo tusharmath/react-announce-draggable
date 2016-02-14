@@ -26,7 +26,7 @@ e.droppable = createDeclarative(function (stream, dispose, u) {
   dispose(e
     ._findDomNode(u.ReactDOM, stream)
     .subscribe(el => {
-      el.addEventListener('dragover', x => dispatch(u.observer, this, 'DRAG_OVER', x))
-      el.addEventListener('drop', x => dispatch(u.observer, this, 'DROP', x))
+      el.addEventListener('dragover', x => this.dispatch('DRAG_OVER', x))
+      el.addEventListener('drop', x => this.dispatch('DROP', x))
     }))
 })

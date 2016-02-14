@@ -16,8 +16,8 @@ test('draggable', t => {
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
   const observer = Rx.Observer.create(x => out.push(x))
-  const utils = {ReactDOM: {findDOMNode}}
-  const Mock = asStream(observer)(draggable(utils, mock()))
+  const u = {ReactDOM: {findDOMNode}}
+  const Mock = asStream(observer)(draggable(u, mock()))
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
@@ -35,8 +35,8 @@ test('droppable', t => {
   const addEventListener = (ev, cb) => listeners.push({ev, cb})
   const findDOMNode = x => ({addEventListener})
   const observer = Rx.Observer.create(x => out.push(x))
-  const utils = {observer, ReactDOM: {findDOMNode}}
-  const Mock = droppable(utils, mock())
+  const u = {ReactDOM: {findDOMNode}}
+  const Mock = asStream(observer)(droppable(u, mock()))
   const m = new Mock()
   m.componentWillMount()
   m.componentDidMount()
@@ -44,7 +44,9 @@ test('droppable', t => {
   listeners[0].cb('event-1')
   listeners[1].cb('event-2')
   t.same(out, [
-    {event: 'event-1', component: m, type: 'DRAG_OVER'},
-    {event: 'event-2', component: m, type: 'DROP'}
+    { component: m, event: 'WILL_MOUNT', args: [] },
+    { component: m, event: 'DID_MOUNT', args: [] },
+    { component: m, event: 'DRAG_OVER', args: [ 'event-1' ] },
+    { component: m, event: 'DROP', args: [ 'event-2' ] }
   ])
 })
