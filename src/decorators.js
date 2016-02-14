@@ -7,8 +7,9 @@
 const ReactDOM = require('react-dom')
 const e = exports
 const createDeclarative = require('react-announce').createDeclarative
-const dispatch = (observer, component, type, event) => observer
-    .onNext({event, component, type})
+const dispatch = function (event, customEvent, el) {
+    el.addEventListener(event, x => this.dispatch(customEvent, x))
+}
 
 e.ReactDOM = ReactDOM
 e._findDomNode = (ReactDOM, stream) => stream
@@ -18,7 +19,7 @@ e._findDomNode = (ReactDOM, stream) => stream
 e.draggable = createDeclarative(function (stream, dispose, u) {
   dispose(e
     ._findDomNode(u.ReactDOM, stream)
-    .subscribe(el => el.addEventListener('dragstart', x => this.dispatch('DRAG_START', x)))
+    .subscribe(dispatch.bind(this, 'dragstart', 'DRAG_START'))
   )
 })
 
@@ -26,7 +27,7 @@ e.droppable = createDeclarative(function (stream, dispose, u) {
   dispose(e
     ._findDomNode(u.ReactDOM, stream)
     .subscribe(el => {
-      el.addEventListener('dragover', x => this.dispatch('DRAG_OVER', x))
-      el.addEventListener('drop', x => this.dispatch('DROP', x))
+      dispatch.call(this, 'dragover', 'DRAG_OVER', el)
+      dispatch.call(this, 'drop', 'DROP', el)
     }))
 })
