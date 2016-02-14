@@ -5,22 +5,23 @@
 'use strict'
 
 const Rx = require('rx')
-module.exports = () => {
-  const observer = new Rx.Subject()
-  const omitType = x => {
-    const y = Object.assign({}, x)
-    delete y.type
-    return y
-  }
-  const dragOver = observer.filter(x => x.type === 'DRAG_OVER').map(omitType)
-  const dragStart = observer.filter(x => x.type === 'DRAG_START').map(omitType)
-  const drop = observer.filter(x => x.type === 'DROP').map(omitType)
+const filterEvent = (stream, ev) => stream.filter(x => x.event === ev)
+const omit = (ob, keys) => {
+  const out = {}
+  Object
+    .keys(ob)
+    .filter(x => keys.indexOf(x) === -1)
+    .forEach(x => out[x] = ob[x])
+  return out
+}
+module.exports = source => {
+  const dragOver = filterEvent(source, 'DRAG_OVER').map(x => omit(x, ['event']))
+  const dragStart = filterEvent(source, 'DRAG_START').map(x => omit(x, ['event']))
+  const drop = filterEvent(source, 'DROP').map(x => omit(x, ['event']))
 
-  const stream = Rx.Observable.merge(
+  return Rx.Observable.merge(
     dragStart.map(picked => ({picked, type: 'PICKED'})),
     drop.withLatestFrom(dragStart, (over, picked) => ({over, picked, type: 'DROP'})),
     dragOver.withLatestFrom(dragStart, (over, picked) => ({over, picked, type: 'DRAG'}))
   )
-
-  return {observer, getStream: () => stream}
 }
