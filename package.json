@@ -34,5 +34,24 @@
   },
   "publishConfig": {
     "tag": "next"
-  }
+  },
+  "keywords": [
+    "decorators",
+    "declarative",
+    "react",
+    "rx",
+    "observable",
+    "stream",
+    "framework",
+    "announce",
+    "extension",
+    "plugin",
+    "size",
+    "drag",
+    "drop",
+    "dom",
+    "custom",
+    "draggable",
+    "droppable"
+  ]
 }
