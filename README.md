@@ -12,7 +12,7 @@ npm i react-announce-draggable --save
 
 ## Example Usage
 
-Auto fires three types of custom events — `DRAG_START`, `DRAG_OVER` and `DROP`, on the component stream.
+Auto fires three types of custom events — `DRAG_START`, `DRAG_OVER` and `DROP`, on the [component stream][component-stream].
 
 ```javascript
 import {draggable, droppable, consolidate}  from 'react-announce-draggable'
@@ -66,3 +66,4 @@ consolidate(bus).subscribe(x => console.log(x))
 [npm-icon]: https://img.shields.io/npm/v/react-announce-draggable.svg
 [npm]: https://www.npmjs.com/package/react-announce-draggable
 [react-announce]: https://github.com/tusharmath/react-announce
+[component-stream]: https://github.com/tusharmath/react-announce#api
