@@ -7,9 +7,10 @@ import test from 'ava'
 import decorators from '../src/decorators'
 import { asStream } from 'react-announce'
 import Rx from 'rx'
-const mock = () => class MOCK {
 
+const mock = () => class MOCK {
 }
+
 test('draggable', t => {
 
   const out = []
