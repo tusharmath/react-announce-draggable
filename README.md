@@ -1,4 +1,6 @@
 # Reactive Announce Draggable
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/tusharmath/react-announce-draggable.svg)](https://greenkeeper.io/)
 [![Build Status][travis-ci-icon]][travis-ci]
 [![npm][npm-icon]][npm]
 
